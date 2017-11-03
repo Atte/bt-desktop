@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
     entry: {
@@ -28,7 +29,7 @@ module.exports = {
         new webpack.IgnorePlugin(/vertx/),
         new webpack.IgnorePlugin(/un~$/),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin()
+        new UglifyJSPlugin()
     ],
     resolve: {
         extensions: ['', '.js', 'jsx', '.cjsx', '.coffee']
