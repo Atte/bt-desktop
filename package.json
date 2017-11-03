@@ -1,9 +1,12 @@
 {
-  "name": "coffee-react-quickstart",
-  "description": "Quickstart for creating React.js web applications",
-  "version": "0.0.1",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "bugs": "https://github.com/KyleAMathews/coffee-react-quickstart/issues",
+  "name": "bt-desktop",
+  "description": "Alternative client for BerryTube",
+  "version": "0.0.2",
+  "license": "MIT",
+  "homepage": "http://bt.insecure.fi/",
+  "repository": "https://gitlab.com/AtteLynx/bt-desktop.git",
+  "bugs": "https://gitlab.com/AtteLynx/bt-desktop/issues",
+  "main": "main.js",
   "dependencies": {
     "apng-canvas": "git+https://git@github.com/CiderSqueezy/apng-canvas.git",
     "babel-core": "^5.8.29",
@@ -46,17 +49,6 @@
     "webpack": "~1.10.1",
     "webpack-dev-server": "~1.10.1"
   },
-  "homepage": "https://github.com/KyleAMathews/coffee-react-quickstart",
-  "keywords": [
-    "react",
-    "react-tools",
-    "quickstart",
-    "coffeescript",
-    "cjsx"
-  ],
-  "license": "MIT",
-  "main": "main.js",
-  "repository": "git@github.com:KyleAMathews/coffee-react-quickstart.git",
   "scripts": {
     "start": "./node_modules/.bin/gulp watch",
     "build": "./node_modules/.bin/gulp build",
