@@ -41,7 +41,11 @@ if !window.appState
 		squeeInboxOpen: false
 		squees: []
 
-		chatMessages: []
+		activeChat: 'main'
+		chatMessages:
+			main: []
+			admin: []
+
 		drinkCount: 0
 
 		sounds:
@@ -49,7 +53,7 @@ if !window.appState
 			drinks: false
 			poll: false
 
-# window.appState.chatMessages = require "./chatlog"
+# window.appState.chatMessages.main = require "./chatlog"
 
 isSquee = (msg) -> appState.viewer && msg.toLowerCase().indexOf(appState.viewer.nick.toLowerCase()) != -1
 
@@ -90,6 +94,7 @@ module.exports = React.createClass
 		socket.on "reconnect", @login
 		socket.on "loginError", @loginError
 		socket.on "setNick", @setNick
+		socket.on "setType", @setType
 		socket.on "kicked", @kicked
 
 	# Playlist
@@ -146,7 +151,8 @@ module.exports = React.createClass
 	# Chat
 
 	newMessage: (data) ->
-		appState.chatMessages.push data.msg
+		channel = data.msg.metadata.channel || 'main'
+		appState.chatMessages[channel].push data.msg
 
 		if !data.msg.ghost && data.msg.nick != appState.viewer?.nick and isSquee(data.msg.msg)
 			data.msg.isSquee = true
@@ -158,8 +164,8 @@ module.exports = React.createClass
 		# if data.msg.emote is "drink"
 			# drinkSound.play()
 
-		# if appState.chatMessages.length > 1500
-		# 	appState.chatMessages = appState.chatMessages.slice(appState.chatMessages.length-1000)
+		# if appState.chatMessages[channel].length > 1500
+		# 	appState.chatMessages[channel] = appState.chatMessages[channel].slice(appState.chatMessages[channel].length-1000)
 
 		@setState
 			squees: appState.squees
@@ -181,6 +187,10 @@ module.exports = React.createClass
 		appState.emotesEnabled = !appState.emotesEnabled
 		@setState(emotesEnabled: appState.emotesEnabled)
 
+	toggleModchat: ->
+		appState.activeChat = if appState.activeChat == 'main' then 'admin' else 'main'
+		@setState(activeChat: appState.activeChat)
+
 	clearSquees: ->
 		appState.squees = [];
 		appState.squeeInboxOpen = false;
@@ -192,7 +202,7 @@ module.exports = React.createClass
 		socket.emit 'chat',
 			msg: msg
 			metadata:
-				channel: 'main'
+				channel: appState.activeChat
 				flair: 0
 
 	drunkCount: (drinks) ->
@@ -255,13 +265,22 @@ module.exports = React.createClass
 		socket.emit('myPlaylistIsInited')
 
 	setNick: (data) ->
-		appState.viewer =
-			nick: data
-			pass: localStorage.getItem("pass") || ""
+		if not appState.viewer
+			appState.viewer = {}
+		appState.viewer.nick = data
+		appState.viewer.pass = localStorage.getItem("pass") || ""
 		appState.loginError = false
 		@setState
 			viewer: appState.viewer
 			loginError: appState.loginError
+
+	setType: (data) ->
+		if not appState.viewer
+			appState.viewer = {}
+		appState.viewer.isSpike = data >= 1
+		appState.viewer.isAdmin = data >= 2
+		@setState
+			viewer: appState.viewer
 
 	kicked: (reason) ->
 		msg = "You have been kicked"
@@ -299,11 +318,14 @@ module.exports = React.createClass
 				currentVideo={@state.currentVideo}
 				drinkCount={@state.drinkCount}
 				emotesEnabled={@state.emotesEnabled}
+				activeChat={@state.activeChat}
+				viewer={@state.viewer}
 				onClickSquees={@toggleSqueeList}
 				onClickPollsBtn={@togglePollList}
 				onClickUserBtn={@toggleUserList}
 				onClickPlaylistBtn={@togglePlaylist}
-				onClickEmotes={@toggleEmotes}/>
+				onClickEmotes={@toggleEmotes}
+				onClickModchat={@toggleModchat}/>
 			<div className="chat">
 				{if @state.userlistOpen
 					<UserList users={@state.users} />}
@@ -322,7 +344,7 @@ module.exports = React.createClass
 						/>}
 				<ChatBox
 					emotesEnabled={@state.emotesEnabled}
-					messages={@state.chatMessages}/>
+					messages={@state.chatMessages[@state.activeChat]}/>
 				{if @state.viewer && !@state.loginError
 					<ChatInput
 						users={@state.users}

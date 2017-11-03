@@ -18,6 +18,9 @@ module.exports = React.createClass
 		squeeClass =
 			"notify": @props.squees.length
 
+		modchatClass =
+			"notify": @props.activeChat != 'main'
+
 		dropdown =
 			<ul className="dropdown-menu">
 				<li><a onClick={@props.onClickEmotes}><i className="material-icons">favorite</i> {if @props.emotesEnabled then "Disable" else "Enable"} Emotes</a></li>
@@ -34,6 +37,10 @@ module.exports = React.createClass
 				BerryTube {if @props.currentVideo then <span className="now-playing">Now playing: {decodeURIComponent(@props.currentVideo.videotitle)} <span className={"drink-count #{"hidden" unless @props.drinkCount}"}>({@props.drinkCount} Drinks)</span> </span>}
 			</span>
 			<div className="menu">
+				{if @props.viewer?.isSpike
+					<span className={cx(modchatClass)} title="Toggle Modchat" onClick={@props.onClickModchat}>
+						<i className="material-icons">security</i>
+					</span>}
 				<span className={cx(squeeClass)} title="Toggle Squees" onClick={@props.onClickSquees}>
 					<i className="material-icons">mail</i>
 				</span>
