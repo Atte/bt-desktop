@@ -13,7 +13,7 @@ module.exports = class ChatMessage extends React.Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		return 	nextProps.renderEmotes != this.props.renderEmotes ||
 		nextProps.highlighted != this.props.highlighted ||
-		nextProps.seoncdaryHighlighted != this.props.seoncdaryHighlighted ||
+		nextProps.secondaryHighlighted != this.props.secondaryHighlighted ||
 		nextProps.msg != this.props.msg
 	}
 
@@ -58,7 +58,7 @@ module.exports = class ChatMessage extends React.Component {
 				"squee": msg.isSquee,
 				"self": msg.isSelf,
 				"highlighted": this.props.highlighted,
-				"seoncdaryHighlighted": this.props.seoncdaryHighlighted,
+				"secondaryHighlighted": this.props.secondaryHighlighted,
 				"quote": body.indexOf("&gt;") === 0
 			}
 

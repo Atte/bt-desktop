@@ -68,7 +68,7 @@ module.exports = class ChatBox extends React.Component {
 			return (
 				<ChatMessage
 					highlighted={msg.nick == this.state.selectedNick}
-					seoncdaryHighlighted={msg.msg.indexOf(this.state.selectedNick) != -1}
+					secondaryHighlighted={msg.msg.indexOf(this.state.selectedNick) != -1}
 					renderEmotes={this.props.emotesEnabled && i > renderEmoteIndex}
 					onSelectNick={this.selectNick.bind(this)}
 					msg={msg}
