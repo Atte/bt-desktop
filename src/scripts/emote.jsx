@@ -1,8 +1,5 @@
 let React = require("react")
 let cx = require("classnames")
-// APNG is bad and just creates a global
-let _APNG = require("apng-canvas")
-let APNG = window.APNG
 
 let Bem = require("./berrymotes.jsx")
 let {EmoteParser, EmoteHtml} = require("emotes")
@@ -38,32 +35,6 @@ module.exports = class Emote extends React.Component {
 		html = html || new EmoteHtml(Bem.map)
 		let state = this.getStateFromEmoteString(this.state.originalString)
 		this.setState(state)
-	}
-
-	componentDidMount() {
-		let node = this.refs.emote
-
-		// @TODO only apply this if we actually dont have native apng support
-		// also allow animate only on hover for emote search
-		if(this.state.emoteData && this.state.emoteData.apng_url) {
-			APNG.parseURL(this.state.emoteData.apng_url).then((anim) => {
-				let canvas = document.createElement("canvas")
-				canvas.width = anim.width
-				canvas.height = anim.height
-
-				let position = (this.state.emoteData["background-position"] || ["0px", "0px"])
-				node.appendChild(canvas)
-
-				node.style.backgroundImage = null
-				canvas.style.position = "absolute"
-				canvas.style.left = position[0]
-				canvas.style.top = position[1]
-				anim.addContext(canvas.getContext("2d"))
-				anim.numPlays = Math.floor(60000/anim.playTime) // only run animations for 1min
-				anim.rewind()
-				anim.play()
-			})
-		}
 	}
 
 	render() {
