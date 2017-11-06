@@ -15,7 +15,7 @@ document.body.appendChild(s)
 module.exports =
 	hashCode: hashCode
 	getUserColor: (nick) ->
-		if wutUserColors[nick]?
+		if wutUserColors[nick]?.color
 			wutUserColors[nick].color
 		else
 			hash = hashCode(nick)

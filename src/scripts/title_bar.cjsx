@@ -21,6 +21,23 @@ module.exports = React.createClass
 		modchatClass =
 			"notify": @props.activeChat != 'main'
 
+		nowPlaying =
+			<span className="now-playing">
+				Now playing:
+				<a target="_blank" href={switch @props.currentVideo?.videotype
+					when 'yt' then 'https://www.youtube.com/watch?v=' + @props.currentVideo.videoid
+					when 'vimeo' then 'https://vimeo.com/' + @props.currentVideo.videoid
+					when 'dm' then 'https://www.dailymotion.com/video/' + @props.currentVideo.videoid
+					when 'osmf' then @props.currentVideo.videoid
+					when 'soundcloud' then 'https://atte.fi/soundcloud/?' + @props.currentVideo.videoid.substr(2)
+				}>
+					{decodeURIComponent(@props.currentVideo?.videotitle)}
+				</a>
+				<span className={"drink-count #{"hidden" unless @props.drinkCount}"}>
+					({@props.drinkCount} Drinks)
+				</span>
+			</span>
+
 		dropdown =
 			<ul className="dropdown-menu">
 				<li><a onClick={@props.onClickEmotes}><i className="material-icons">favorite</i> {if @props.emotesEnabled then "Disable" else "Enable"} Emotes</a></li>
@@ -34,7 +51,7 @@ module.exports = React.createClass
 		<div id="title-bar" ng-controller="TitleBarCtrl">
 			<img className="icon" src="favicon.png"/>
 			<span className="title">
-				BerryTube {if @props.currentVideo then <span className="now-playing">Now playing: {decodeURIComponent(@props.currentVideo.videotitle)} <span className={"drink-count #{"hidden" unless @props.drinkCount}"}>({@props.drinkCount} Drinks)</span> </span>}
+				BerryTube {nowPlaying}
 			</span>
 			<div className="menu">
 				{if @props.viewer?.isSpike
