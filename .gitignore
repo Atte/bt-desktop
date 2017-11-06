@@ -32,3 +32,5 @@ BerryTube.app
 dist/
 BerryTube-*
 *.sublime-*
+
+/.scannerwork
