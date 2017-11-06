@@ -39,7 +39,7 @@ module.exports = {
             { test: /\.scss$/, loader: "style!css!sass?outputStyle=expanded&" +
             "includePaths[]=" +
             (path.resolve(__dirname, "./node_modules")) },
-            // { test: /\.css$/, loaders: ['style', 'css']},
+            { test: /\.css$/, loaders: ['style', 'css']},
             { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']},
             { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loaders: ['babel']},
             { test: /\.coffee$/, loader: 'coffee' }

@@ -1,0 +1,7 @@
+.bem-invert {
+   filter: invert(100%);
+}
+
+.bem-hue-rotate {
+   filter: hue-rotate(180deg);
+}

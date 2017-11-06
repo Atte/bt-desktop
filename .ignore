@@ -1,3 +1,4 @@
 /docs/
 /src/scripts/chatlog.js
+/package-lock.json
 *.min.*
