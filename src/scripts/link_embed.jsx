@@ -4,7 +4,7 @@ let jsonp = require("superagent-jsonp")
 
 let embed_providers = [{
 	match: /(deviantart\.com|fav\.me)/i,
-	url: "http://backend.deviantart.com/oembed",
+	url: "https://backend.deviantart.com/oembed",
 	format: "jsonp"
 }, {
 	match: /(derpicdn|trixiebooru|derpiboo|derpibooru)\.(ru|org|net)/i,
@@ -21,7 +21,7 @@ let embed_providers = [{
 
 module.exports = class LinkEmbed extends React.Component {
 	constructor(props) {
-		super(props) 
+		super(props)
 		this.state = {
 			title: props.url
 		}
