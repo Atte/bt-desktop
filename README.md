@@ -1,3 +1,7 @@
+[![pipeline status](https://gitlab.com/AtteLynx/bt-desktop/badges/master/pipeline.svg)](https://gitlab.com/AtteLynx/bt-desktop/commits/master)
+[![Quality Gate](https://sonar.atte.fi/api/badges/gate?key=bt-desktop)](https://sonar.atte.fi/dashboard/index/bt-desktop)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgitlab.com%2FAtteLynx%2Fbt-desktop.svg?type=shield)](https://app.fossa.io/projects/git%2Bgitlab.com%2FAtteLynx%2Fbt-desktop?ref=badge_shield)
+
 ## Install dependencies
 Clone this repo and then after entering the new directory run `npm install`.
 
