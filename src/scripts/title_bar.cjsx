@@ -23,7 +23,7 @@ module.exports = React.createClass
 
 		nowPlaying =
 			<span className="now-playing">
-				Now playing:
+				Now playing:&nbsp;
 				<a target="_blank" href={switch @props.currentVideo?.videotype
 					when 'yt' then 'https://www.youtube.com/watch?v=' + @props.currentVideo.videoid
 					when 'vimeo' then 'https://vimeo.com/' + @props.currentVideo.videoid
@@ -31,7 +31,7 @@ module.exports = React.createClass
 					when 'osmf' then @props.currentVideo.videoid
 					when 'soundcloud' then 'https://atte.fi/soundcloud/?' + @props.currentVideo.videoid.substr(2)
 				}>
-					{decodeURIComponent(@props.currentVideo?.videotitle)}
+					{decodeURIComponent(@props.currentVideo?.videotitle || 'Connecting...')}
 				</a>
 				<span className={"drink-count #{"hidden" unless @props.drinkCount}"}>
 					({@props.drinkCount} Drinks)
