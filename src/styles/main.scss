@@ -433,7 +433,7 @@ html, body, #main-container, #app {
 		background-color: #D3FFDE;
 	}
 	&.sweetiebot {
-		font-family: fixed-width;
+		font-family: fixed-width, monospace;
 	}
 	&.rcv {
 		color: red;
@@ -474,7 +474,7 @@ html, body, #main-container, #app {
 			padding: 0;
 		}
 		.scroller {
-			padding: none;
+			padding: 0;
 			.msg-row {
 				padding: 12px;
 				.timestamp {

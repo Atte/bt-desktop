@@ -148,9 +148,7 @@ let Bem = ee({
 					scores[i] = 0
 				}
 			}
-			for (var id in scores) {
-				searchResults.push(id)
-			}
+			searchResults = searchResults.concat(Object.keys(scores));
 			searchResults.sort(function (a, b) {
 				return scores[b] - scores[a]
 			})
