@@ -1,0 +1,24 @@
+image: node:latest
+
+stages:
+- build
+- analysis
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  cache:
+    paths:
+    - node_modules/
+
+sonarqube:
+  stage: analysis
+  image: ciricihq/gitlab-sonar-scanner
+  variables:
+    SONAR_URL: "https://sonar.atte.fi"
+    SONAR_PROJECT_VERSION: "$CI_BUILD_ID"
+    SONAR_ANALYSIS_MODE: "publish"
+  script:
+  - unset CI_BUILD_REF && /usr/bin/sonar-scanner-run.sh
