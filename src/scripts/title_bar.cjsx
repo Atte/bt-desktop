@@ -1,6 +1,17 @@
 cx = require "classnames"
 Bem = require "./berrymotes.jsx"
 
+formatTime = (seconds) ->
+	hours = Math.floor(seconds / 60 / 60)
+	minutes = Math.floor(seconds / 60) % 60
+	seconds = Math.floor(seconds % 60)
+	time = seconds + 's'
+	if minutes > 0
+		time = minutes + 'm' + time
+	if hours > 0
+		time = hours + 'h' + time
+	time
+
 module.exports = React.createClass
 	displayName: 'TitleBar'
 
@@ -21,16 +32,27 @@ module.exports = React.createClass
 		modchatClass =
 			"notify": @props.activeChat != 'main'
 
+		videoURL = =>
+			time = ''
+			if @props.currentVideo?.time?.pos
+				seconds = @props.currentVideo.time.pos + (Date.now() - @props.currentVideo.time.when) / 1000
+				time = '#t=' + formatTime(seconds)
+
+			switch @props.currentVideo?.videotype
+				when 'yt' then 'https://www.youtube.com/watch?v=' + @props.currentVideo.videoid + time
+				when 'vimeo' then 'https://vimeo.com/' + @props.currentVideo.videoid + time
+				when 'dm' then 'https://www.dailymotion.com/video/' + @props.currentVideo.videoid
+				when 'osmf' then @props.currentVideo.videoid
+				when 'soundcloud' then 'https://atte.fi/soundcloud/?' + @props.currentVideo.videoid.substr(2)
+
+		onVideoClick = (event) ->
+			window.open(videoURL())
+			event.preventDefault()
+
 		nowPlaying =
 			<span className="now-playing">
 				Now playing:&nbsp;
-				<a target="_blank" href={switch @props.currentVideo?.videotype
-					when 'yt' then 'https://www.youtube.com/watch?v=' + @props.currentVideo.videoid
-					when 'vimeo' then 'https://vimeo.com/' + @props.currentVideo.videoid
-					when 'dm' then 'https://www.dailymotion.com/video/' + @props.currentVideo.videoid
-					when 'osmf' then @props.currentVideo.videoid
-					when 'soundcloud' then 'https://atte.fi/soundcloud/?' + @props.currentVideo.videoid.substr(2)
-				}>
+				<a target="_blank" href={videoURL()} onClick={onVideoClick}>
 					{decodeURIComponent(@props.currentVideo?.videotitle || 'Connecting...')}
 				</a>
 				<span className={"drink-count #{"hidden" unless @props.drinkCount}"}>

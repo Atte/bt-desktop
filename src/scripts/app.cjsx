@@ -105,6 +105,9 @@ module.exports = React.createClass
 
 	updateCurrentVideo: (data) ->
 		appState.currentVideo = data.video
+		appState.currentVideo.time =
+			pos: data.time
+			when: Date.now()
 		@setState(currentVideo: appState.currentVideo)
 
 	newPlaylist: (data) ->
