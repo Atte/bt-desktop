@@ -14,6 +14,11 @@ module.exports = React.createClass
 
 	handleSubmit: (e) ->
 		e.preventDefault()
+
+		@setState(message: @state.message.replace(/^\s+|\s+$/g, ''))
+		if @state.message.length == 0
+			return
+
 		@props.onSubmit?(@state.message)
 		@tabbed = false
 		@setState

@@ -53,7 +53,7 @@ module.exports = React.createClass
 			<span className="now-playing">
 				Now playing:&nbsp;
 				<a target="_blank" href={videoURL()} onClick={onVideoClick}>
-					{decodeURIComponent(@props.currentVideo?.videotitle || 'Connecting...')}
+					{decodeURIComponent(decodeURIComponent(@props.currentVideo?.videotitle || 'Connecting...'))}
 				</a>
 				<span className={"drink-count #{"hidden" unless @props.drinkCount}"}>
 					({@props.drinkCount} Drinks)
