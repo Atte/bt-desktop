@@ -18,7 +18,7 @@ let Bem = ee({
 			rawEmotes.forEach((em) => {
 				let img = em["background-image"]
 				if(img && img.indexOf("//") === 0) {
-					em["background-image"] = `http:${img}`
+					em["background-image"] = `https:${img}`
 				}
 			})
 			map = new EmoteMap(rawEmotes)
