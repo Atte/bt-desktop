@@ -11,7 +11,7 @@ var map, rawEmotes
 
 let Bem = ee({
 	dataRefresh: function(){
-		let url = "http://berrymotes.com/assets/berrymotes_json_data.json"
+		let url = "https://cdn.berrytube.tv/berrymotes/data/berrymotes_json_data.v2.json"
 		SuperAgent.get(url)
 		.end((err, res) => {
 			rawEmotes = res.body

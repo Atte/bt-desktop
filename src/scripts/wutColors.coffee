@@ -9,7 +9,7 @@ hashCode = (str) ->
 
 window.wutUserColors = []
 s = document.createElement("script")
-s.src = "http://btc.berrytube.tv/wut/wutColors/usercolors.js"
+s.src = "https://btc.berrytube.tv/wut/wutColors/usercolors.js"
 document.body.appendChild(s)
 
 module.exports =

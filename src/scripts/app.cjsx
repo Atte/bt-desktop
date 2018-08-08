@@ -10,7 +10,7 @@ SqueeInbox = require "./squee_inbox"
 io = require 'socket.io-client'
 _ = require 'underscore'
 
-socket = io.connect('berrytube.tv:8344', {
+socket = io.connect('https://socket.berrytube.tv', {
 	'connect timeout': 5000,
 	'reconnect': true,
 	'reconnection delay': 500,
